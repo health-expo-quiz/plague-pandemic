@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Containment: Global Crisis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Containment: Global Crisis</h1>
+        <p>In the year 2050, a mysterious and highly contagious pathogen emerges from the thawing permafrost in Siberia. As panic ensues, step into the shoes of Dr. Aria Chen, tasked with leading the global response.</p>
+    </header>
+
+    <main>
+        <section class="introduction">
+            <p><strong>Scenario:</strong> The infamous Black Death virus has resurfaced. Dr. Aria Chen must lead the global effort to contain this pandemic, battling against climate refugees, cyberattacks, and anti-science movements.</p>
+            <p>The pandemic grows, challenges arise, and the world depends on you!</p>
+        </section>
+
+        <section class="game-container">
+            <div id="game-screen">
+                <p id="game-status">Global Status: Containing Virus... <span id="virus-level">Virus Level: Low</span></p>
+            </div>
+
+            <div id="controls">
+                <button id="start-button">Start Game</button>
+                <button id="contain-virus-button" disabled>Contain Virus</button>
+                <button id="upgrade-vaccine-button" disabled>Upgrade Vaccine</button>
+            </div>
+        </section>
+
+        <section class="images">
+            <h3>Game Images:</h3>
+            <img src="images/world-map.jpg" alt="World Map" class="game-image" id="world-map">
+            <img src="images/virus.jpg" alt="Virus Illustration" class="game-image" id="virus-image">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2050 Containment Global Crisis - All Rights Reserved</p>
+    </footer>
+
+    <script src="game.js"></script>
+    <script>
+        // DOM Elements
+        const startButton = document.getElementById('start-button');
+        const containVirusButton = document.getElementById('contain-virus-button');
+        const upgradeVaccineButton = document.getElementById('upgrade-vaccine-button');
+        const gameStatus = document.getElementById('game-status');
+        const virusLevelElement = document.getElementById('virus-level');
+        const worldMap = document.getElementById('world-map');
+        const virusImage = document.getElementById('virus-image');
+
+        let gameStarted = false;
+        let virusLevel = 0;
+        let vaccineUpgraded = false;
+
+        // Game start function
+        startButton.addEventListener('click', () => {
+            gameStarted = true;
+            virusLevel = 1; // Start with a low level of virus
+            gameStatus.innerHTML = `Global Status: Containing Virus... <span id="virus-level">Virus Level: Low</span>`;
+            containVirusButton.disabled = false;
+            upgradeVaccineButton.disabled = false;
+            startButton.disabled = true; // Disable start button after game starts
+        });
+
+        // Contain Virus function
+        containVirusButton.addEventListener('click', () => {
+            if (virusLevel < 10) {
+                virusLevel++;
+                updateVirusLevel();
+            } else {
+                gameStatus.innerHTML = "Global Status: Virus contained! You won!";
+                containVirusButton.disabled = true;
+                upgradeVaccineButton.disabled = true;
+            }
+        });
+
+        // Upgrade Vaccine function
+        upgradeVaccineButton.addEventListener('click', () => {
+            if (virusLevel > 5 && !vaccineUpgraded) {
+                vaccineUpgraded = true;
+                gameStatus.innerHTML = `Global Status: Upgraded vaccine! <span id="virus-level">Virus Level: Reduced</span>`;
+                virusLevel--;
+                updateVirusLevel();
+            }
+        });
+
+        // Update virus level on UI
+        function updateVirusLevel() {
+            if (virusLevel <= 3) {
+                virusLevelElement.innerText = "Virus Level: Low";
+                virusImage.src = "images/low-virus.jpg"; // Placeholder for image
+            } else if (virusLevel <= 7) {
+                virusLevelElement.innerText = "Virus Level: Moderate";
+                virusImage.src = "images/medium-virus.jpg"; // Placeholder for image
+            } else {
+                virusLevelElement.innerText = "Virus Level: High";
+                virusImage.src = "images/high-virus.jpg"; // Placeholder for image
+            }
+        }
+    </script>
+</body>
+</html>
